@@ -150,12 +150,12 @@ function saveData(ele){
     const saveId = ele;
     const saveIndex = saveId.indexOf('e');
     const saveNumber = saveId.slice(saveIndex + 1);
-    const saveShopName = document.querySelector(`#saveValue${saveNumber} h3`).textContent;
-    const saveShopUrl = document.querySelector(`#saveValue${saveNumber} a`).href;
     const checkInput = document.getElementById(`favorite${saveNumber}`);
-    console.log(saveShopUrl);
-    console.log(saveShopName);
+    // console.log(saveShopUrl);
+    // console.log(saveShopName);
     if(checkInput.checked){
+        const saveShopName = document.querySelector(`#saveValue${saveNumber} h3`).textContent;
+        const saveShopUrl = document.querySelector(`#saveValue${saveNumber} a`).href;
         newPostRef.push({
             shopName:saveShopName,
             shopUrl:saveShopUrl
@@ -174,6 +174,7 @@ function favoriteList(){
 
         let valueDiv = document.createElement('div');
         valueDiv.classList.add("favorite-list");
+        valueDiv.setAttribute('id',`d${key}`);
         let valueA = document.createElement('a');
         valueA.setAttribute('href',`${value.shopUrl}`);
         valueA.setAttribute('target','_blank');
@@ -199,10 +200,10 @@ window.onload = function(){
 function deleteFavorite(ele){
     newPostRef.child(ele).remove();
     // 削除した場合の表示更新
-    document.getElementById('favoriteBody').innerHTML = "";
-    favoriteList();
+    document.getElementById(`d${ele}`).remove();
 }
 
+// LPのボタンクリック処理
 document.getElementById('firstDisabled').addEventListener('click',()=>{
     document.querySelector('.first').classList.add('disabled');
     document.querySelector('.first').classList.remove('first');
